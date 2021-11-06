@@ -1,18 +1,25 @@
 package main
 
 import (
-"fmt"
-"net/http"
+	"net/http"
 )
 
+func charities(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Here are your charitices"))
+}
+
+func donors(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Here are your donors"))
+}
+
 func main() {
-	http.HandleFunc("/charities", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Here are your charities")
-	})
+	http.HandleFunc("/charities", charities)
+	http.HandleFunc("/donors", donors)
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, you've requested: %s\n", r.URL.Path)
-	})
+	http.Handle("/", http.FileServer(http.Dir("./src")))
 
-	http.ListenAndServe(":80", nil)
+	if err := http.ListenAndServe(":8080", nil); err != nil {
+		panic(err)
+	}
+
 }
