@@ -5,7 +5,7 @@ import (
 )
 
 func charities(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Here are your charitices"))
+	w.Write([]byte("Here are your charities"))
 }
 
 func donors(w http.ResponseWriter, r *http.Request) {
