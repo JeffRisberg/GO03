@@ -19,10 +19,22 @@ func process(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, daysOfWeek)
 }
 
+type Data struct {
+	Results []string // Must be exported!
+	Other   []int    // Must be exported!
+}
+
+func process2(w http.ResponseWriter, r *http.Request) {
+	data := &Data{[]string{"a", "b", "c"}, []int{1, 2, 3}}
+	t, _ := template.ParseFiles("tmpl2.html")
+	t.Execute(w, data)
+}
+
 func main() {
 	http.HandleFunc("/charities", charities)
 	http.HandleFunc("/donors", donors)
 	http.HandleFunc("/process", process)
+	http.HandleFunc("/process2", process2)
 
 	http.Handle("/", http.FileServer(http.Dir("./src")))
 
