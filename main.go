@@ -20,12 +20,13 @@ func process(w http.ResponseWriter, r *http.Request) {
 }
 
 type Data struct {
-	Results []string // Must be exported!
-	Other   []int    // Must be exported!
+	Title   string
+	Results []string
+	Other   []int
 }
 
 func process2(w http.ResponseWriter, r *http.Request) {
-	data := &Data{[]string{"a", "b", "c"}, []int{1, 2, 3}}
+	data := &Data{"Lord of the Rings", []string{"a", "b", "c"}, []int{1, 2, 3}}
 	t, _ := template.ParseFiles("tmpl2.html")
 	t.Execute(w, data)
 }
